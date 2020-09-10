@@ -40,13 +40,13 @@ print(f'News Title =\"{mars_news}\"\n')
 print(f'News Text =\"{marslatest_text}\"\n')
 
     # Mars Image to be Scraped
-    jpl_nasa_url = 'https://www.jpl.nasa.gov'
     images_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(images_url)
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
 
     # Retrieve JPL Featured Space Image
+    jpl_nasa_url = 'https://www.jpl.nasa.gov'
     relativeimage_path = soup.find_all('img')[3]["src"]
     featuredimage_url = jpl_nasa_url + relativeimage_path
     print(featuredimage_url)
