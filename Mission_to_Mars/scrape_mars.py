@@ -8,36 +8,15 @@ import time
 
 def initial_browser():
     executable_path = {'executable_path': 'chromedriver.exe'}
-    return browser('chrome', **executable_path, headless=False)
+    return Browser('chrome', **executable_path, headless=False)
 
 def scrape_url():
-    browser = initial_browser
+    browser = initial_browser()
 
     # URL to scrape
     url = "https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest"
     browser.visit(url)
     time.sleep(2)
-
- # Iterate through all slides
-for x in url:
-    # HTML object
-    html = browser.html
-    # Parse HTML with Beautiful Soup
-    soup = BeautifulSoup(html, 'html.parser')
-    # Retrieve all elements that contain article information
-    articles = soup.find_all('li', class_='slide')[0]
-    # Iterate through each article
-    for news in articles:
-        news_title = soup.find_all('div', class_="content_title")
-        for title in news_title:
-            if (title.a):
-                mars_news = title.a.text
-                break
-        if (news.a):
-            marslatest_text = news.a.text
-            break
-print(f'News Title =\"{mars_news}\"\n')
-print(f'News Text =\"{marslatest_text}\"\n')
 
     # Mars Image to be Scraped
     images_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -106,7 +85,6 @@ print(f'News Text =\"{marslatest_text}\"\n')
 
     marshemisphere_list = []
     hemisphereimage_list = []
-    mars_hemisphere_url = []
 
     hemisphere_titles = hemisphereimage_list = soup.find_all('h3')
 
