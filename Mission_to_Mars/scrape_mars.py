@@ -6,7 +6,7 @@ import requests
 import pymongo
 import time
 
-def initial_browser():
+def init_browser():
     executable_path = {'executable_path': 'chromedriver.exe'}
     return Browser('chrome', **executable_path, headless=False)
 
@@ -107,3 +107,4 @@ def scrape_url():
 
     mars_hemisphere_image_url
 
+    return mars_hemisphere_image_url

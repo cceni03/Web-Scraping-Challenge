@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mission to Mars</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+   </head>
+
+  <body>
+    
+    <!-- Add the news headings -->
+    <div class="container-fluid">
+      <div class="jumbotron text-center">
+        <h1>Mission to Mars</h1>
+        <p>One Stop for the Latest Mars News and Facts.</p>
+        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data!</a></p>
+      </div>
+      <h2>Latest Mars News</h2>
+      <h4>{{ mars_data.latest_news_title }}</h4>
+      <p>{{ mars_data.latest_news_text }}</p>
+
+      <!-- Add the columns-->
+      <!-- add featured image. -->
+      <div class="row">
+     <!-   - One third of screen (4/12) -->
+        <div class="col-md-8">
+          <h2 id="landing">Featured Mars Image<br><br></h2>
+          <figure class="figure">
+            <figcaption class = "figure-caption text-center text-primary"></figcaption>
+          </figure>
+          <section id="featured_image">
+            <img id="image" width="100%" height="100%" src="{{ mars_data.jpl_image }}" width = "100%" alt="">
+          </section>  
+        </div>
+        
+        <!-- add mars facts. -->
+        <div class="col-md-4">
+          <setion id="fact_table">
+            <h2 id="fact text-center">Mars Facts<br><br></h2>
+            <table id = "table_id" class = "table table-borderless table-striped mytable">
+              <thead class = "table_thread"></thead>
+              <tbody class = "table_body-th table-striped {{ mars_data.mars_fact | safe }}</tbody>
+            </table>
+          </section>
+        </div>  
+   
+     </div>
+    </div>
+      <!-- Add hemisphere -->
+      <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <h2 class = "text-primary">Mars Hemispheres</h2>
+        </div>
+        
+        <!-- "for" loop to go through the dictionary -->
+        {% for hs in mars_data.mars_hemisphere %}
+          <div class="col-md-6">
+            <figure class="figure">
+              <img class = "image img-fluid my-1" width="80%" height="80%" src="{{ hs.img_url}}"> 
+              <figcaption class = "figure-caption text-center text-primary"><h4>{{ hs.title}}</h4></figcaption>
+            </figure>
+          </div>
+        {% endfor %}
+      </div>
+    </div> <!-- end of container--> 
+
+    <style>
+      footer {
+        text-align: center;
+      }
+    </style>
+    <footer>
+      <br><br><h4>Copyright</h4>
+      <p>Trilogy Education Services &#169 2020. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
