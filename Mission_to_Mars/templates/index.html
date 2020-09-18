@@ -40,14 +40,10 @@
       </div>
       <div class="col-md-4">
         <div class="border">
-          </br>
-          <h5>Current Weather on Mars</h5>
-          {{mars.mars_weather}}
         </div>
-        </br>
         <div class="border">
           <h5>Mars Facts</h5>
-            {{ mars.fact_table | safe }}
+            {{ mars.fact_table}}
         </div>
       </div>
     </div>
@@ -63,11 +59,11 @@
               <div class="col-6 border">
               </br>
                     <div>
-                      <img width="512 px" height="512 px" src="{{ hemisphere.img_url | safe }}">
+                      <img width="512 px" height="512 px" src="{{hemisphere_image_urls}}">
                     </div>
 
                     <div>
-                      <h4> {{ hemisphere.title | safe }} </h4>  
+                      <h4> {{hemisphere.title}} </h4>  
                     </div>
             
               </div>

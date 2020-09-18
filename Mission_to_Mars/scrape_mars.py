@@ -5,21 +5,23 @@ import requests
 import pymongo
 
 def init_browser():
+    # @NOTE: Replace the path with your actual path to the chromedriver
     executable_path = {"executable_path": "chromedriver.exe"}
     return Browser("chrome", **executable_path, headless=False)
 
 def scrape():
     browser = init_browser()
+    mars_dict ={}
 
-    # Mars News URL of page to be Scraped
+    # Mars News URL of page to be scraped
     news_url = 'https://mars.nasa.gov/news/'
     browser.visit(news_url)
     html = browser.html
     news_soup = BeautifulSoup(html, 'html.parser')
 
     # Retrieve News Title and Paragraph
-    news_title = news_soup.find_all('div', class_='content_title')[1].text
-    news_p = news_soup.find_all('div', class_='article_teaser_body')[0].text
+    news_title = news_soup.find_all('div', class_='content_title')[2].text
+    news_p = news_soup.find_all('div', class_='article_teaser_body')[1].text
 
     # Mars Image to be scraped
     jpl_nasa_url = 'https://www.jpl.nasa.gov'
@@ -38,16 +40,17 @@ def scrape():
     mars_df = tables[0]
     mars_df.rename(columns = {0:'Fact Heading', 1:'Fact Data'}, inplace = True)
     mars_df.set_index('Fact Heading', inplace = True)
-    mars_df
+    mars_html_table = mars_facts_df.to_html()
+    mars_html_table.replace('\n', '')
     
-    # Mars Hemisphere
+    # Mars hemisphere name and image to be scraped
     usgs_url = 'https://astrogeology.usgs.gov'
     hemispheres_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(hemispheres_url)
     hemispheres_html = browser.html
     hemispheres_soup = BeautifulSoup(hemispheres_html, 'html.parser')
-    
-    # Mars Hemispheres Data
+  
+   # Mars Hemispheres Data
     all_mars_hemispheres = hemispheres_soup.find('div', class_='collapsible results')
     mars_hemispheres = all_mars_hemispheres.find_all('div', class_='item')
     hemisphere_image_urls = []
@@ -56,9 +59,9 @@ def scrape():
     for i in mars_hemispheres:
         # Collect Title
         hemisphere = i.find('div', class_="description")
-        title = hemisphere.h3.text    
+        title = hemisphere.h3.text  
 
-        # Collect Image Link
+        # Collect Image Link 
         hemisphere_link = hemisphere.a["href"]    
         browser.visit(usgs_url + hemisphere_link)        
         image_html = browser.html
@@ -72,7 +75,7 @@ def scrape():
         image_dict['img_url'] = image_url        
         hemisphere_image_urls.append(image_dict)
 
-    # Mars Dictionary
+    # Mars 
     mars_dict = {
         "news_title": news_title,
         "news_p": news_p,
