@@ -40,10 +40,10 @@ def scrape():
     mars_df = tables[0]
     mars_df.rename(columns = {0:'Fact Heading', 1:'Fact Data'}, inplace = True)
     mars_df.set_index('Fact Heading', inplace = True)
-    mars_html_table = mars_facts_df.to_html()
+    mars_html_table = mars_df.to_html()
     mars_html_table.replace('\n', '')
     
-    # Mars hemisphere name and image to be scraped
+    # Mars Hemisphere name and image to be scraped
     usgs_url = 'https://astrogeology.usgs.gov'
     hemispheres_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(hemispheres_url)
