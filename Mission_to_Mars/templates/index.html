@@ -24,8 +24,8 @@
   </br>
     <div class="row">
       <div class="col-md-12">
-        <h4>{{news_title}}</h4>
-        <p>{{news_p}}</p>
+        <h4>{{mars.news_title}}</h4>
+        <p>{{mars.news_p}}</p>
       </div>
     </div>
   <hr>
@@ -52,7 +52,7 @@
     </div>
     </br>
     <div class="row">       
-            {% for hemisphere in mars.hemisphere.img_url %} 
+            {% for hemisphere in mars.hemisphere_images %} 
               <div class="col-6 border">
               </br>
                     <div>
